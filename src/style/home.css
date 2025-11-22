@@ -1,0 +1,36 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home-content{
+    margin-top: 50px;
+    text-align: center;
+    font-size: 50px;
+    font-family: Arial, sans-serif;
+    color: var(--gray-light);
+}
+
+.home-interactive{
+    margin-top: 30px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    img{
+        width: 300px;
+        height: 300px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+}
+
+
+.buttonLayout{
+    display: flex;
+    gap: 50px;
+    margin-top: 30px;
+}
