@@ -106,14 +106,9 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
     if (mode === 'player') {
         return (
             <>
-            <p>Score : Le joueur 1 (X) a {score.X} points et le joueur 2 (O) a {score.O} points</p>
-            {
-            (winner || draw) &&
-            <div className='winner'>
-                <h2>{winner ? `Le gagnant est : ${winner === 'X' ? username || 'Joueur 1' : 'Joueur 2'}` : 'Match nul !'}</h2>
-                <button className='reset-button' onClick={() => {reset()}}>Recommencer</button>
+            <div className='score'>
+                <p>Score : Le joueur 1 (X) a {score.X} points et le joueur 2 (O) a {score.O} points</p>
             </div>
-            }
 
             <div className='morpion'>
                 <div className='line'>
@@ -132,6 +127,13 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
                     <button className='square' id='9' disabled={!!winner || draw} onClick={() => handleClick(8)}>{tab[8] === 'X' && <img src={cross} alt="X" />}{tab[8] === 'O' && <img src={circle} alt="O" />}</button>
                 </div>
             </div>
+            {
+            (winner || draw) &&
+            <div className='winner'>
+                <h2>{winner ? `Le gagnant est : ${winner === 'X' ? username || 'Joueur 1' : 'Joueur 2'}` : 'Match nul !'}</h2>
+                <button className='button-secondary reset' onClick={() => {reset()}}>Recommencer</button>
+            </div>
+            }
             </>
         );
     }

@@ -12,11 +12,23 @@
     text-align: center;
     color: var(--gray-light);
 }
-    
+
+.score{
+  margin-top: 2%;
+}
+  
+.winner{
+  margin-top: 2%;
+  
+
+  .reset{
+    margin-top: 20px;
+  }
+}
 
 .morpion{
     display: flex;
-    margin-top: 10%;
+    margin-top: 5%;
     flex-direction: row;
     gap: 10px;
     align-items: center;
