@@ -11,6 +11,8 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
     const [winner, setWinner] = useState<boolean | string | null>(null);
     const [draw, setDraw] = useState(false);
     const [score, setScore] = useState({X: 0, O: 0});
+    const [showModalWin, setShowModalWin] = useState(false);
+    const [showModalLoose, setShowModalLoose] = useState(false);
     // const [log, setLog] = useState(Array(9).fill(null));
     // const [cpt, setCpt] = useState(0);
     // const [refresh, setRefresh] = useState(false);
@@ -58,6 +60,8 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
         setIsXNext(Math.floor(Math.random() * 2) === 0);
         setWinner(null);
         setDraw(false);
+        setShowModalWin(false);
+        setShowModalLoose(false);
     }
 
     const handleClick = (index: number) => {
@@ -71,13 +75,21 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
             const draw = newTab.every(cell => cell !== null);
             if (draw && !winner) {
                 setDraw(true);
-                alert("Match nul !");
+                setShowModalLoose(true);
             }
-            if (winner) {
+            else if (mode === 'ai' && winner) {
                 setWinner(winner);
-                alert(`Le gagnant est : ${winner === 'X' ? username || 'Joueur 1' : 'Joueur 2'}`);
-
+                if (winner === 'O') {
+                    setShowModalLoose(true);
+                }
+                else {
+                    reset();
+                }
             }
+            else if (winner) {
+                setWinner(winner);
+                setShowModalWin(true);
+            } 
         } else {
             return;
         }
@@ -133,9 +145,32 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
         </>
 
 
+    const modalWin = 
+        <>
+            <div className="modal">
+                <div className="modal-content">
+                    <p>{winner === 'X' ? username || 'Joueur 1' : 'Joueur 2'} a gagné !</p>
+                    <div className='buttons' style={{display: 'flex', gap: '10px', justifyContent: 'center', marginTop: '20px'}}>
+                        <button className="submit-button button-primary" onClick={reset}>Rejouer</button>
+                        <button className="submit-button button-secondary" onClick={() => setShowModalWin(false)}>Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </>
 
-
-
+    const modalLoose = 
+        <>
+            <div className="modal">
+                <div className="modal-content">
+                    <p>{draw ? 'Match nul !' : 'L\'IA a gagné !'}</p>
+                    <div className='buttons' style={{display: 'flex', gap: '10px', justifyContent: 'center', marginTop: '20px'}}>
+                        <button className="submit-button button-primary" onClick={reset}>Recommencer</button>
+                        <button className="submit-button button-secondary" onClick={() => setShowModalLoose(false)}>Sauvegarder</button>
+                        <button className="submit-button button-secondary" onClick={() => setShowModalLoose(false)}>Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </>
 
 
 
@@ -148,8 +183,12 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
             </div>
             {morpion}
             {(isXNext === false && !winner && !draw) && botPlay()}
-            {winner === 'O' && setScore(prevScore => ({...prevScore, X: 0}))}
-            {(winner || draw) && reset()}
+            
+            {/* Modale défaite */}
+            {winner === 'O' && showModalLoose && modalLoose}
+            
+            {/* Modale match nul */}
+            {draw && showModalLoose && modalLoose}
             </>
         );
     }
@@ -164,8 +203,11 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
             {
             (winner || draw) &&
             <div className='winner'>
-                <h2>{winner ? `Le gagnant est : ${winner === 'X' ? username || 'Joueur 1' : 'Joueur 2'}` : 'Match nul !'}</h2>
-                <button className='button-secondary reset' onClick={() => {reset()}}>Recommencer</button>
+                {(showModalWin && modalWin)}
+                <div className='info'>
+                    {draw && <p>Match nul !</p>}
+                    <button className="submit-button button-secondary" onClick={reset}>Rejouer</button>
+                </div>
             </div>
             }
             </>

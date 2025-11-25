@@ -29,7 +29,7 @@ function Versus() {
                     value={inputValue}
                     onChange={(e) => { setInputValue(e.target.value); console.log(e.target.value); }}
                 />
-                <button className="submit-button" onClick={handleSubmit}>Valider</button>
+                <button className="submit-button button-secondary" onClick={handleSubmit}>Valider</button>
             </div>
         </div>
     </>
