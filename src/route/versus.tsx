@@ -48,26 +48,16 @@ function Versus() {
                     <h1> Contre {vs === 'player' ? 'un Joueur' : 'l\'IA'}</h1>
                 </div>
 
-                <TicTacToe mode={vs as 'ai' | 'player'} username={username} />
+
+                {(vs === 'player') && (
+                    <TicTacToe mode={vs}/>
+                )}
+                
+                {(vs === 'ai' && !showModal) && (
+                    <TicTacToe mode={vs} username={username} />
+                )}
 
 
-                {/* <div className='morpion'>
-                    <div className='line'>
-                        <div className='square' id='1'></div>
-                        <div className='square' id='4'></div>
-                        <div className='square' id='7'></div>
-                    </div>
-                    <div className='line'>
-                        <div className='square' id='2'></div>
-                        <div className='square' id='5'></div>
-                        <div className='square' id='8'></div>
-                    </div>
-                    <div className='line'>
-                        <div className='square' id='3'></div>
-                        <div className='square' id='6'></div>
-                        <div className='square' id='9'></div>
-                    </div>
-                </div> */}
             </div>
         </>
     )

@@ -52,6 +52,7 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
         [2, 4, 6],
     ];
 
+
     const reset = () => {
         setTab(Array(9).fill(null));
         setIsXNext(Math.floor(Math.random() * 2) === 0);
@@ -98,18 +99,20 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
     }
 
 
-
-    if (mode === 'ai') {
-
+    const botPlay = () => {
+        const casesVides = tab.map((value, index) => value === null ? index : null).filter(value => value !== null) as number[];
+        if (casesVides.length === 0 || winner) {
+            return;
+        }
+        const randomIndex = Math.floor(Math.random() * casesVides.length);
+        const caseChoisie = casesVides[randomIndex];
+        handleClick(caseChoisie);
     }
 
-    if (mode === 'player') {
-        return (
-            <>
-            <div className='score'>
-                <p>Score : Le joueur 1 (X) a {score.X} points et le joueur 2 (O) a {score.O} points</p>
-            </div>
 
+
+    const morpion =
+        <>
             <div className='morpion'>
                 <div className='line'>
                     <button className='square' id='1' disabled={!!winner || draw} onClick={() => handleClick(0)}>{tab[0] === 'X' && <img src={cross} alt="X" />}{tab[0] === 'O' && <img src={circle} alt="O" />}</button>
@@ -127,6 +130,37 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
                     <button className='square' id='9' disabled={!!winner || draw} onClick={() => handleClick(8)}>{tab[8] === 'X' && <img src={cross} alt="X" />}{tab[8] === 'O' && <img src={circle} alt="O" />}</button>
                 </div>
             </div>
+        </>
+
+
+
+
+
+
+
+
+
+    if (mode === 'ai') {
+        return (
+            <>
+            <div className='score'>
+                <p>Vous avez {score.X} victoires consecutives</p>
+            </div>
+            {morpion}
+            {(isXNext === false && !winner && !draw) && botPlay()}
+            {winner === 'O' && setScore(prevScore => ({...prevScore, X: 0}))}
+            {(winner || draw) && reset()}
+            </>
+        );
+    }
+
+    if (mode === 'player') {
+        return (
+            <>
+            <div className='score'>
+                <p>Score : Le joueur 1 (X) a {score.X} points et le joueur 2 (O) a {score.O} points</p>
+            </div>
+            {morpion}
             {
             (winner || draw) &&
             <div className='winner'>
