@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import '../style/versus.css';
 import circle from '../assets/img/circle.webp';
 import cross from '../assets/img/cross.webp';
+import { dataStorage } from '../storage/datastorage';
 
 
 function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: string}) {
@@ -62,6 +63,10 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
         setDraw(false);
         setShowModalWin(false);
         setShowModalLoose(false);
+    }
+
+    const saveScore = () => {
+        dataStorage.save(username, score.X);
     }
 
     const handleClick = (index: number) => {
@@ -165,7 +170,7 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
                     <p>{draw ? 'Match nul !' : 'L\'IA a gagné !'}</p>
                     <div className='buttons' style={{display: 'flex', gap: '10px', justifyContent: 'center', marginTop: '20px'}}>
                         <button className="submit-button button-primary" onClick={reset}>Recommencer</button>
-                        <button className="submit-button button-secondary" onClick={() => setShowModalLoose(false)}>Sauvegarder</button>
+                        <button className="submit-button button-secondary" onClick={saveScore }>Sauvegarder</button>
                         <button className="submit-button button-secondary" onClick={() => setShowModalLoose(false)}>Fermer</button>
                     </div>
                 </div>
@@ -184,10 +189,8 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
             {morpion}
             {(isXNext === false && !winner && !draw) && botPlay()}
             
-            {/* Modale défaite */}
             {winner === 'O' && showModalLoose && modalLoose}
             
-            {/* Modale match nul */}
             {draw && showModalLoose && modalLoose}
             </>
         );
