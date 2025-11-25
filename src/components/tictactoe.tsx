@@ -170,7 +170,7 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
                     <p>{draw ? 'Match nul !' : 'L\'IA a gagné !'}</p>
                     <div className='buttons' style={{display: 'flex', gap: '10px', justifyContent: 'center', marginTop: '20px'}}>
                         <button className="submit-button button-primary" onClick={reset}>Recommencer</button>
-                        <button className="submit-button button-secondary" onClick={saveScore }>Sauvegarder</button>
+                        <button className="submit-button button-secondary" onClick={() => { saveScore(); setShowModalLoose(false); reset()}}>Sauvegarder</button>
                         <button className="submit-button button-secondary" onClick={() => setShowModalLoose(false)}>Fermer</button>
                     </div>
                 </div>
