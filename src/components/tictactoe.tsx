@@ -63,6 +63,11 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
         setDraw(false);
         setShowModalWin(false);
         setShowModalLoose(false);
+
+    }
+
+    const resetScore = () => {
+        setScore(prevscore => ({X: 0, O: 0}));
     }
 
     const saveScore = () => {
@@ -132,19 +137,19 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
         <>
             <div className='morpion'>
                 <div className='line'>
-                    <button className='square' id='1' disabled={!!winner || draw} onClick={() => handleClick(0)}>{tab[0] === 'X' && <img src={cross} alt="X" />}{tab[0] === 'O' && <img src={circle} alt="O" />}</button>
-                    <button className='square' id='4' disabled={!!winner || draw} onClick={() => handleClick(3)}>{tab[3] === 'X' && <img src={cross} alt="X" />}{tab[3] === 'O' && <img src={circle} alt="O" />}</button>
-                    <button className='square' id='7' disabled={!!winner || draw} onClick={() => handleClick(6)}>{tab[6] === 'X' && <img src={cross} alt="X" />}{tab[6] === 'O' && <img src={circle} alt="O" />}</button>
+                    <button className='square' disabled={!!winner || draw} onClick={() => handleClick(0)}>{tab[0] === 'X' && <img src={cross} alt="X" />}{tab[0] === 'O' && <img src={circle} alt="O" />}</button>
+                    <button className='square' disabled={!!winner || draw} onClick={() => handleClick(3)}>{tab[3] === 'X' && <img src={cross} alt="X" />}{tab[3] === 'O' && <img src={circle} alt="O" />}</button>
+                    <button className='square' disabled={!!winner || draw} onClick={() => handleClick(6)}>{tab[6] === 'X' && <img src={cross} alt="X" />}{tab[6] === 'O' && <img src={circle} alt="O" />}</button>
                 </div>
                 <div className='line'>
-                    <button className='square' id='2' disabled={!!winner || draw} onClick={() => handleClick(1)}>{tab[1] === 'X' && <img src={cross} alt="X" />}{tab[1] === 'O' && <img src={circle} alt="O" />}</button>
-                    <button className='square' id='5' disabled={!!winner || draw} onClick={() => handleClick(4)}>{tab[4] === 'X' && <img src={cross} alt="X" />}{tab[4] === 'O' && <img src={circle} alt="O" />}</button>
-                    <button className='square' id='8' disabled={!!winner || draw} onClick={() => handleClick(7)}>{tab[7] === 'X' && <img src={cross} alt="X" />}{tab[7] === 'O' && <img src={circle} alt="O" />}</button>
+                    <button className='square' disabled={!!winner || draw} onClick={() => handleClick(1)}>{tab[1] === 'X' && <img src={cross} alt="X" />}{tab[1] === 'O' && <img src={circle} alt="O" />}</button>
+                    <button className='square' disabled={!!winner || draw} onClick={() => handleClick(4)}>{tab[4] === 'X' && <img src={cross} alt="X" />}{tab[4] === 'O' && <img src={circle} alt="O" />}</button>
+                    <button className='square' disabled={!!winner || draw} onClick={() => handleClick(7)}>{tab[7] === 'X' && <img src={cross} alt="X" />}{tab[7] === 'O' && <img src={circle} alt="O" />}</button>
                 </div>
                 <div className='line'>
-                    <button className='square' id='3' disabled={!!winner || draw} onClick={() => handleClick(2)}>{tab[2] === 'X' && <img src={cross} alt="X" />}{tab[2] === 'O' && <img src={circle} alt="O" />}</button>
-                    <button className='square' id='6' disabled={!!winner || draw} onClick={() => handleClick(5)}>{tab[5] === 'X' && <img src={cross} alt="X" />}{tab[5] === 'O' && <img src={circle} alt="O" />}</button>
-                    <button className='square' id='9' disabled={!!winner || draw} onClick={() => handleClick(8)}>{tab[8] === 'X' && <img src={cross} alt="X" />}{tab[8] === 'O' && <img src={circle} alt="O" />}</button>
+                    <button className='square' disabled={!!winner || draw} onClick={() => handleClick(2)}>{tab[2] === 'X' && <img src={cross} alt="X" />}{tab[2] === 'O' && <img src={circle} alt="O" />}</button>
+                    <button className='square' disabled={!!winner || draw} onClick={() => handleClick(5)}>{tab[5] === 'X' && <img src={cross} alt="X" />}{tab[5] === 'O' && <img src={circle} alt="O" />}</button>
+                    <button className='square' disabled={!!winner || draw} onClick={() => handleClick(8)}>{tab[8] === 'X' && <img src={cross} alt="X" />}{tab[8] === 'O' && <img src={circle} alt="O" />}</button>
                 </div>
             </div>
         </>
@@ -170,7 +175,7 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
                     <p>{draw ? 'Match nul !' : 'L\'IA a gagné !'}</p>
                     <div className='buttons' style={{display: 'flex', gap: '10px', justifyContent: 'center', marginTop: '20px'}}>
                         <button className="submit-button button-primary" onClick={reset}>Recommencer</button>
-                        <button className="submit-button button-secondary" onClick={() => { saveScore(); setShowModalLoose(false); reset()}}>Sauvegarder</button>
+                        <button className="submit-button button-secondary" onClick={() => { saveScore(); setShowModalLoose(false); reset(); resetScore(); }}>Sauvegarder</button>
                         <button className="submit-button button-secondary" onClick={() => setShowModalLoose(false)}>Fermer</button>
                     </div>
                 </div>
@@ -209,7 +214,7 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
                 {(showModalWin && modalWin)}
                 <div className='info'>
                     {draw && <p>Match nul !</p>}
-                    <button className="submit-button button-secondary" onClick={reset}>Rejouer</button>
+                    <button className="submit-button button-secondary" onClick={() => { reset(); }}>Rejouer</button>
                 </div>
             </div>
             }
