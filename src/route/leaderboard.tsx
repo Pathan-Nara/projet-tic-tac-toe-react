@@ -1,7 +1,7 @@
 import { dataStorage } from "../storage/datastorage";
 import '../style/leaderboard.css';
 import { HiArrowCircleRight , HiArrowCircleLeft  } from 'react-icons/hi'
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 
 function Leaderboard() {

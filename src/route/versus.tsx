@@ -6,7 +6,7 @@ import TicTacToe from '../components/tictactoe';
 function Versus() {
     const { vs } = useParams();
     const [username, setUsername] = useState('')
-    const [showModal, setShowModal] = useState(vs === 'player' ? false : true)
+    const [showModal, setShowModal] = useState(vs === 'ai' ? true : false)
     const [inputValue, setInputValue] = useState('')
     
 
@@ -44,19 +44,22 @@ function Versus() {
             <div className="versus-container">
                 <div className='text'>
                     {username && <p>Bienvenue {username} !</p>}
-                    <h1>Mode 1v1</h1>
-                    <h1> Contre {vs === 'player' ? 'un Joueur' : 'l\'IA'}</h1>
+                    <h1> {vs === '3coups' ? 'Mode 3 Coups' : 'Mode 1v1'} </h1>
+                    <h1> Contre {vs === 'ai' ? 'l\'IA' : 'un Joueur'}</h1>
                 </div>
 
 
                 {(vs === 'player') && (
                     <TicTacToe mode={vs}/>
                 )}
+
+                {(vs === '3coups') && (
+                    <TicTacToe mode={vs} />
+                )}
                 
                 {(vs === 'ai' && !showModal) && (
                     <TicTacToe mode={vs} username={username} />
                 )}
-
 
             </div>
         </>

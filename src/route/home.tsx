@@ -14,6 +14,7 @@ function Home() {
                     <div className='buttonLayout'>
                         <button className='homeButton button-primary'><Link to="/versus/player">Joueur vs Joueur</Link></button>
                         <button className='homeButton button-secondary'><Link to="/versus/ai">Joueur vs IA</Link></button>
+                        <button className='homeButton button-tertiary'><Link to="/versus/3coups">Mode 3 Coups</Link></button>
                     </div>
                 </div>
             </div>

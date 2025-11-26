@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import '../style/versus.css';
 import circle from '../assets/img/circle.webp';
 import cross from '../assets/img/cross.webp';
 import { dataStorage } from '../storage/datastorage';
+import { Link } from 'react-router-dom';
 
 
-function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: string}) {
+function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player' | '3coups', username?: string}) {
     let first = Math.floor(Math.random() * 2)
     const [tab , setTab] = useState(Array(9).fill(null));
     const [isXNext, setIsXNext] = useState(first === 0);
@@ -14,35 +15,9 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
     const [score, setScore] = useState({X: 0, O: 0});
     const [showModalWin, setShowModalWin] = useState(false);
     const [showModalLoose, setShowModalLoose] = useState(false);
-    // const [log, setLog] = useState(Array(9).fill(null));
-    // const [cpt, setCpt] = useState(0);
-    // const [refresh, setRefresh] = useState(false);
-
-    // useEffect(() => {
-    //     setCpt(prevCpt => prevCpt + 1);                         Je me suis trompé et je me suis lancée dans la variante du jeu et en plus j'avais mal compris la consigne de la variante....
-    //     console.log("Turn count: ", cpt);
-    //     console.log("Move log: ", log);
-    //     if(cpt >= 8 ){
-    //         setRefresh(!refresh);
-    //         setCpt(prevCpt => 0);
-    //     }
-
-    //     if (refresh) {
-    //         const removable = log[cpt];
-    //         tab[removable] = null;
-    //         log[cpt] = null;
-    //         console.log(log, "Removing index: ", removable);
-    //         if(log[8] === null){
-    //             setRefresh(false);
-    //         }
-    //     }
-
-    //     console.log(refresh)
-
-    // }, [tab]);
-
-
-    // console.log(first, "First player is: ", isXNext ? 'X' : 'O');
+    const [moveHistory, setMoveHistory] = useState({X: [] as number[], O: [] as number[]});
+    const currentPlayer = isXNext ? 'X' : 'O';
+    const currentPlayerMoves = moveHistory[currentPlayer];
 
     const winConditions = [
         [0, 1, 2],
@@ -63,7 +38,7 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
         setDraw(false);
         setShowModalWin(false);
         setShowModalLoose(false);
-
+        setMoveHistory({X: [] , O: [] });
     }
 
     const resetScore = () => {
@@ -79,8 +54,20 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
             const newTab = tab.slice();
             newTab[index] = isXNext ? 'X' : 'O';
             setTab(newTab);
+            if (mode === '3coups') {
+                const newMoveHistory = { ...moveHistory };
+                newMoveHistory[currentPlayer] = [...currentPlayerMoves, index];
+                setMoveHistory(newMoveHistory);
+                console.log(newMoveHistory);
+                if (newMoveHistory[currentPlayer].length > 3) {
+                    const indexToRemove = newMoveHistory[currentPlayer][0];
+                    newTab[indexToRemove] = null;
+                    newMoveHistory[currentPlayer].shift();
+                    setTab(newTab);
+                    setMoveHistory(newMoveHistory);
+                }
+            }
             setIsXNext(!isXNext);
-            // setLog([...log, index]);
             const winner = isWin(newTab);
             const draw = newTab.every(cell => cell !== null);
             if (draw && !winner) {
@@ -197,11 +184,33 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player', username?: str
             {winner === 'O' && showModalLoose && modalLoose}
             
             {draw && showModalLoose && modalLoose}
+            <button className="button-secondary" style={{marginTop:"50px"}} onClick={() => { saveScore(); reset(); resetScore(); }}><Link to="/leaderboard">Quitter et Sauvegarder</Link></button>
             </>
         );
     }
 
     if (mode === 'player') {
+        return (
+            <>
+            <div className='score'>
+                <p>Score : Le joueur 1 (X) a {score.X} points et le joueur 2 (O) a {score.O} points</p>
+            </div>
+            {morpion}
+            {
+            (winner || draw) &&
+            <div className='winner'>
+                {(showModalWin && modalWin)}
+                <div className='info'>
+                    {draw && <p>Match nul !</p>}
+                    <button className="submit-button button-secondary" onClick={() => { reset(); }}>Rejouer</button>
+                </div>
+            </div>
+            }
+            </>
+        );
+    }
+
+    if (mode === '3coups') {
         return (
             <>
             <div className='score'>

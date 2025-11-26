@@ -76,6 +76,27 @@ button {
     }
 }
 
+.button-tertiary {
+    background-color: var(--gray-light);
+    color: var(--gray-dark);
+    padding: 10px 20px;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    box-shadow: 0 4px 6px var(--gray-medium-shadow);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+        background-color: var(--gray-light-shadow);
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px var(--gray-medium-shadow);
+    }
+}
+
 
 .modal {
   position: fixed;

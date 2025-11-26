@@ -13,9 +13,6 @@ function Navbar() {
                         <Link to="/">Home</Link>
                     </div>
                     <div className='links'>
-                        <Link to="/gamemode">Les modes de jeu</Link>
-                    </div>
-                    <div className='links'>
                         <Link to="/leaderboard">Le classement</Link>
                     </div>
                 </div>
