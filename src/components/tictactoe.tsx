@@ -16,6 +16,7 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player' | '3coups', use
     const [showModalWin, setShowModalWin] = useState(false);
     const [showModalLoose, setShowModalLoose] = useState(false);
     const [moveHistory, setMoveHistory] = useState({X: [] as number[], O: [] as number[]});
+    const [lastMove, setLastMove] = useState<number | null>(null);
     const currentPlayer = isXNext ? 'X' : 'O';
     const currentPlayerMoves = moveHistory[currentPlayer];
 
@@ -65,6 +66,7 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player' | '3coups', use
                     newMoveHistory[currentPlayer].shift();
                     setTab(newTab);
                     setMoveHistory(newMoveHistory);
+                    setLastMove(index);
                 }
             }
             setIsXNext(!isXNext);
@@ -124,19 +126,19 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player' | '3coups', use
         <>
             <div className='morpion'>
                 <div className='line'>
-                    <button className='square' disabled={!!winner || draw} onClick={() => handleClick(0)}>{tab[0] === 'X' && <img src={cross} alt="X" />}{tab[0] === 'O' && <img src={circle} alt="O" />}</button>
-                    <button className='square' disabled={!!winner || draw} onClick={() => handleClick(3)}>{tab[3] === 'X' && <img src={cross} alt="X" />}{tab[3] === 'O' && <img src={circle} alt="O" />}</button>
-                    <button className='square' disabled={!!winner || draw} onClick={() => handleClick(6)}>{tab[6] === 'X' && <img src={cross} alt="X" />}{tab[6] === 'O' && <img src={circle} alt="O" />}</button>
+                    <button className={`square ${moveHistory[currentPlayer].length=== 3 && moveHistory[currentPlayer][0] === 0 ? 'last-move' : ''} `} disabled={!!winner || draw} onClick={() => handleClick(0)}>{tab[0] === 'X' && <img src={cross} alt="X" />}{tab[0] === 'O' && <img src={circle} alt="O" />}</button>
+                    <button className={`square ${moveHistory[currentPlayer].length=== 3 && moveHistory[currentPlayer][0] === 3 ? 'last-move' : ''} `} disabled={!!winner || draw} onClick={() => handleClick(3)}>{tab[3] === 'X' && <img src={cross} alt="X" />}{tab[3] === 'O' && <img src={circle} alt="O" />}</button>
+                    <button className={`square ${moveHistory[currentPlayer].length=== 3 && moveHistory[currentPlayer][0] === 6 ? 'last-move' : ''} `} disabled={!!winner || draw} onClick={() => handleClick(6)}>{tab[6] === 'X' && <img src={cross} alt="X" />}{tab[6] === 'O' && <img src={circle} alt="O" />}</button>
                 </div>
                 <div className='line'>
-                    <button className='square' disabled={!!winner || draw} onClick={() => handleClick(1)}>{tab[1] === 'X' && <img src={cross} alt="X" />}{tab[1] === 'O' && <img src={circle} alt="O" />}</button>
-                    <button className='square' disabled={!!winner || draw} onClick={() => handleClick(4)}>{tab[4] === 'X' && <img src={cross} alt="X" />}{tab[4] === 'O' && <img src={circle} alt="O" />}</button>
-                    <button className='square' disabled={!!winner || draw} onClick={() => handleClick(7)}>{tab[7] === 'X' && <img src={cross} alt="X" />}{tab[7] === 'O' && <img src={circle} alt="O" />}</button>
+                    <button className={`square ${moveHistory[currentPlayer].length=== 3 && moveHistory[currentPlayer][0] === 1 ? 'last-move' : ''} `} disabled={!!winner || draw} onClick={() => handleClick(1)}>{tab[1] === 'X' && <img src={cross} alt="X" />}{tab[1] === 'O' && <img src={circle} alt="O" />}</button>
+                    <button className={`square ${moveHistory[currentPlayer].length=== 3 && moveHistory[currentPlayer][0] === 4 ? 'last-move' : ''} `} disabled={!!winner || draw} onClick={() => handleClick(4)}>{tab[4] === 'X' && <img src={cross} alt="X" />}{tab[4] === 'O' && <img src={circle} alt="O" />}</button>
+                    <button className={`square ${moveHistory[currentPlayer].length=== 3 && moveHistory[currentPlayer][0] === 7 ? 'last-move' : ''} `} disabled={!!winner || draw} onClick={() => handleClick(7)}>{tab[7] === 'X' && <img src={cross} alt="X" />}{tab[7] === 'O' && <img src={circle} alt="O" />}</button>
                 </div>
                 <div className='line'>
-                    <button className='square' disabled={!!winner || draw} onClick={() => handleClick(2)}>{tab[2] === 'X' && <img src={cross} alt="X" />}{tab[2] === 'O' && <img src={circle} alt="O" />}</button>
-                    <button className='square' disabled={!!winner || draw} onClick={() => handleClick(5)}>{tab[5] === 'X' && <img src={cross} alt="X" />}{tab[5] === 'O' && <img src={circle} alt="O" />}</button>
-                    <button className='square' disabled={!!winner || draw} onClick={() => handleClick(8)}>{tab[8] === 'X' && <img src={cross} alt="X" />}{tab[8] === 'O' && <img src={circle} alt="O" />}</button>
+                    <button className={`square ${moveHistory[currentPlayer].length=== 3 && moveHistory[currentPlayer][0] === 2 ? 'last-move' : ''} `} disabled={!!winner || draw} onClick={() => handleClick(2)}>{tab[2] === 'X' && <img src={cross} alt="X" />}{tab[2] === 'O' && <img src={circle} alt="O" />}</button>
+                    <button className={`square ${moveHistory[currentPlayer].length=== 3 && moveHistory[currentPlayer][0] === 5 ? 'last-move' : ''} `} disabled={!!winner || draw} onClick={() => handleClick(5)}>{tab[5] === 'X' && <img src={cross} alt="X" />}{tab[5] === 'O' && <img src={circle} alt="O" />}</button>
+                    <button className={`square ${moveHistory[currentPlayer].length=== 3 && moveHistory[currentPlayer][0] === 8 ? 'last-move' : ''} `} disabled={!!winner || draw} onClick={() => handleClick(8)}>{tab[8] === 'X' && <img src={cross} alt="X" />}{tab[8] === 'O' && <img src={circle} alt="O" />}</button>
                 </div>
             </div>
         </>
