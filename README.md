@@ -1,73 +1,36 @@
-# React + TypeScript + Vite
+# README SIMPLE BASIQUE ET EFFICACE POUR UN PROJET TIC TAC TOE EN REACT
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+il existe 3 modes de jeu :
+- Joueur contre Joueur
+- Joueur contre IA
+- Mode 3 Coups
 
-Currently, two official plugins are available:
+Le joueur contre joueur c'est juste deux personnes qui jouent l'une contre l'autre.
+Le joueur contre IA c'est une personne qui joue contre une un bot qui joue aléatoirement.
+Le mode 3 coups c'est un mode où chaque joueur n'a que 3 coups à jouer et le 4eme coup remplace le premier coup joué.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation
 
-## React Compiler
+l'installation est très simple :
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. verifier que nodejs et npm sont installés
+`node -v`
+`npm -v`
 
-## Expanding the ESLint configuration
+2. cloner le dépôt
+`git clone https://github.com/Pathan-Nara/projet-tic-tac-toe-react.git`
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+3. installer les dépendances
+`npm install`
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+4. lancer le projet
+`npm run dev`
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+5. ouvrir le navigateur à l'adresse
+`j'ai pas besoin preciser c'est ecrit dans la console mais au cas ou c'est : http://localhost:5173`
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+6. profiter du jeu !
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Sauvegarde des scores
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Les scores sont sauvegardés dans le localstorage voila.
