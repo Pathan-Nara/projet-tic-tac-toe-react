@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Redirecting...</title>
+    <script>
+      (function () {
+        // Repo base path — keep in sync with vite.config.ts `base`
+        var repo = '/projet-tic-tac-toe-react';
+        var full = window.location.pathname + window.location.search + window.location.hash;
+        // remove repo base if present
+        var path = full.replace(new RegExp('^' + repo), '');
+        // redirect to hash route so the SPA router can handle it
+        var target = repo + '/#' + (path.charAt(0) === '/' ? path.substr(1) : path);
+        window.location.replace(target);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
