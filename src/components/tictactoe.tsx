@@ -16,7 +16,6 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player' | '3coups', use
     const [showModalWin, setShowModalWin] = useState(false);
     const [showModalLoose, setShowModalLoose] = useState(false);
     const [moveHistory, setMoveHistory] = useState({X: [] as number[], O: [] as number[]});
-    const [lastMove, setLastMove] = useState<number | null>(null);
     const currentPlayer = isXNext ? 'X' : 'O';
     const currentPlayerMoves = moveHistory[currentPlayer];
 
@@ -43,7 +42,7 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player' | '3coups', use
     }
 
     const resetScore = () => {
-        setScore(prevscore => ({X: 0, O: 0}));
+        setScore({X: 0, O: 0});
     }
 
     const saveScore = () => {
@@ -66,7 +65,6 @@ function TicTacToe({mode, username = ''}: {mode: 'ai' | 'player' | '3coups', use
                     newMoveHistory[currentPlayer].shift();
                     setTab(newTab);
                     setMoveHistory(newMoveHistory);
-                    setLastMove(index);
                 }
             }
             setIsXNext(!isXNext);
